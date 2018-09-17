@@ -1,0 +1,28 @@
+############################################################
+# Launcher for HelloWorld container for the eBioKit
+# This is a template, the following values must be replaced:
+#   - $${INSTANCE_NAME}, name for the instance
+#   - $${INSTANCE_PORT_1}, port number 1 for the instance (httpd)
+#   - $${MESSAGE}, a message to show in the main page
+############################################################
+
+version: '2'
+services:
+
+    $${INSTANCE_NAME}-hello-world:
+      image: fikipollo/hello-world:0.1
+      container_name: $${INSTANCE_NAME}-hello-world
+      environment:
+        - MESSAGE=$${MESSAGE}
+      depends_on:
+        - $${INSTANCE_NAME}-data
+      volumes_from:
+        - $${INSTANCE_NAME}-data
+      ports:
+        - "$${INSTANCE_PORT_1}:80"
+
+    $${INSTANCE_NAME}-data:
+      image: busybox
+      container_name: $${INSTANCE_NAME}-data
+      volumes:
+        - /data/$${INSTANCE_NAME}-data/:/www

@@ -1,0 +1,20 @@
+version: '2'
+services:
+
+    instance1-hello-world:
+      image: fikipollo/hello-world:0.1
+      container_name: instance1-hello-world
+      environment:
+        - MESSAGE="Hello world!"
+      depends_on:
+        - instance1-hello-world-data
+      volumes_from:
+        - instance1-hello-world-data
+      ports:
+        - "18091:80"
+
+    instance1-hello-world-data:
+      image: busybox
+      container_name: instance1-hello-world-data
+      volumes:
+        - /home/foo/dockers/hello-world/:/www
